@@ -124,3 +124,49 @@
 // которые возвращают методы  attack и fireball.
 // После формирования объектов персонажей создайте функцию startFight, которая принимает в себя два
 // объекта и сравнивает результаты вызовов их методов combo и возвращает строку “Победил ИМЯ_ПЕРСОНАЖА”.
+
+// const user1 = {
+//   name: "Donna",
+//   level: 5,
+//   strength: 4,
+//   agility: 3,
+//   intellect: 8,
+//   attack() {
+//     return this.strength + this.agility;
+//   },
+//   fireball() {
+//     return this.intellect * this.level;
+//   },
+//   combo() {
+//     return this.attack() + this.fireball();
+//   },
+// };
+
+// const user2 = {
+//   name: "Stive",
+//   level: 5,
+//   strength: 4,
+//   agility: 3,
+//   intellect: 3,
+//   attack() {
+//     return this.strength + this.agility;
+//   },
+//   fireball() {
+//     return this.intellect * this.level;
+//   },
+//   combo() {
+//     return this.attack() + this.fireball();
+//   },
+// };
+
+// function startFight(user1, user2) {
+//   if (user1.combo() > user2.combo()) {
+//     console.log("user1");
+//   } else if (user1.combo() < user2.combo()) {
+//     console.log("user2");
+//   } else {
+//     console.log("=");
+//   }
+// }
+
+// startFight(user1, user2);
