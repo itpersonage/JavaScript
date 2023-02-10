@@ -1,0 +1,24 @@
+/* .main {
+    color: blue;
+} */
+
+/* .not_main_page_2 {
+    color: aqua;
+} */
+
+/* .content {
+    color: aqua;
+} */
+
+.elem {
+    padding-left: 20px;
+    margin: 10px;
+    height: 30px;
+    width: 130px;
+    background-color: aquamarine;
+}
+
+.btn {
+    height: 20px;
+    width: 70px;
+}
