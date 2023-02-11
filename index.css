@@ -11,14 +11,35 @@
 } */
 
 .elem {
-    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 4px;
     margin: 10px;
+    margin-left: 0;
     height: 30px;
-    width: 130px;
-    background-color: aquamarine;
+    border: 2px solid;
+    border-radius: 7px;
+    user-select: none;
 }
+
+.elemClose {
+    background-color: rgb(51, 163, 163);
+}
+
+.h3Close {
+    text-decoration: 3px line-through red !important;
+}
+.elem button {
+    margin: 4px;
+    cursor: pointer;
+}
+
+
 
 .btn {
     height: 20px;
     width: 70px;
+    cursor: pointer;
+
 }

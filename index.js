@@ -35,37 +35,43 @@ const input = document.createElement("input");
 form.append(input);
 input.type = "text";
 input.id = "element";
-input.value = "";
 let inputId = document.getElementById("element");
-
-const newElement = (inputId) => {
-  const inputValue = inputId.value;
-  console.log(inputValue);
-  if (inputValue !== "") {
-    const element1 = document.createElement("div");
-    element1.classList.add("elem");
-    element1.innerHTML = `${inputValue}`;
-    content.append(element1);
-  }
-};
 
 const button = document.createElement("button");
 form.append(button);
 button.classList.add("btn");
 button.innerHTML = "ToDo";
 button.type = "submit";
-button.addEventListener("click", (event) => newElement(inputId));
 
-const element1 = document.createElement("div");
-element1.classList.add("elem");
-element1.innerHTML = "<h3>Element_1</h3>";
-content.append(element1);
-
-const element2 = document.createElement("div");
-element2.classList.add("elem");
-element2.innerHTML = "<h3>Element_2</h3>";
-content.append(element2);
+const newElement = (inputId) => {
+  const inputValue = inputId.value;
+  if (inputValue !== "") {
+    const element = document.createElement("div");
+    element.classList.add("elem");
+    content.append(element);
+    const h3 = document.createElement("h3");
+    h3.innerHTML = `${inputValue.toUpperCase()}`;
+    element.append(h3);
+    const divBtn = document.createElement("divBtn");
+    element.append(divBtn);
+    const buttonDelete = document.createElement("button");
+    buttonDelete.innerHTML = "Del";
+    divBtn.append(buttonDelete);
+    const buttonClose = document.createElement("button");
+    buttonClose.innerHTML = "X";
+    divBtn.append(buttonClose);
+    buttonClose.addEventListener("click", () => {
+      element.classList.add("elemClose");
+      h3.classList.add("h3Close");
+    });
+    buttonDelete.addEventListener("click", () => {
+      element.remove();
+    });
+  }
+};
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
+  newElement(inputId);
+  input.value = "";
 });
