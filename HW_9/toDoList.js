@@ -75,6 +75,7 @@ function randorElement(inputText, inputTime) {
 
     btnDelete.addEventListener("click", () => {
       toDoListitem.remove();
+      toDoList.classList.remove("toDoList");
     });
   }
 }
