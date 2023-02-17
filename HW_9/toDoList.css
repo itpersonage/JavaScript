@@ -1,0 +1,54 @@
+.h3 {
+  margin: 0;
+}
+
+.form {
+  background-color: rgb(139, 199, 165);
+  height: 200px;
+  width: 230px;
+  padding: 10px;
+  border: 2px solid black;
+}
+
+.form input {
+  width: 220px;
+  margin-bottom: 5px;
+}
+
+.form p {
+  margin-bottom: 2px;
+}
+
+.form button {
+  margin-top: 20px;
+}
+
+.toDoList {
+  margin-top: 10px;
+  width: 700px;
+  border: 2px solid black;
+}
+
+.toDo-List-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px;
+  background-color: rgb(157, 163, 161);
+}
+
+.toDoListH3 {
+  background-color: burlywood;
+}
+
+.toDo-list-btn {
+  display: flex;
+  align-items: center;
+
+}
+
+.btn-change {
+  height: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
