@@ -10,7 +10,6 @@
 // весь список).
 
 
-
 const inputText = document.getElementById("inputText");
 const inputTime = document.getElementById("inputTime");
 const toDoList = document.getElementById("toDoList");
@@ -18,53 +17,31 @@ const btnAdd = document.getElementById("btnAdd");
 const tasks = [];
 let countId = 0;
 
-function addArray(inputText, inputTime) {
+
+function addTask() {
   let inputTextValue = inputText.value;
   let inputTimeValue = inputTime.value;
+  if (inputTextValue !== "" && inputTimeValue !== "") {
     countId++;
     tasks.push({id: countId,
       name: inputTextValue,
       time: inputTimeValue,
     })
-    console.log(tasks);
-}
+    const taskHTML = `
+    <div class="toDo-List-item" id='${countId}'>
+        <h3 class="inputTextH3">${inputTextValue}</h3>
+        <div class="toDo-list-btn">
+          <h3 class="inputTimeH3">${inputTimeValue}</h3>
+          <button class="btn-change" data-action='change'>Изменить</button>
+          <button class="btn-delete" data-action='delete'>Удалить</button>
+        </div>
+      </div>
+    `;
+    toDoList.insertAdjacentHTML('beforeend',taskHTML);
+  }
+  }
 
-function randerElement(cb, array) {
-
-  if (inputTextValue !== "" && inputTimeValue !== "") {
-    cb()
-
-    // toDoList.classList.add("toDoList");
-    // const toDoListitem = document.createElement("div");
-    // toDoListitem.classList.add("toDo-List-item");
-    // toDoListitem.id = countId;
-    // toDoList.append(toDoListitem);
-
-    // const toDoListBtn = document.createElement("div");
-    // toDoListBtn.classList.add("toDo-list-btn");
-    // toDoListitem.append(toDoListBtn);
-
-    // const inputTextH3 = document.createElement("h3");
-    // inputTextH3.classList.add("inputTextH3");
-    // inputTextH3.innerHTML = `${tasks.inputTextValue}`;
-    // toDoListitem.prepend(inputTextH3);
-
-    // const inputTimeH3 = document.createElement("h3");
-    // inputTimeH3.classList.add("inputTimeH3");
-    // inputTimeH3.innerHTML = `Срок ${tasks.inputTimeValue} мин`;
-    // toDoListBtn.append(inputTimeH3);
-
-    // const btnChange = document.createElement("button");
-    // btnChange.classList.add("btn-change");
-    // btnChange.innerHTML = "Изменить";
-    // toDoListBtn.append(btnChange);
-
-    // const btnDelete = document.createElement("button");
-    // btnDelete.classList.add("btn-delete");
-    // btnDelete.innerHTML = "Удалить";
-    // toDoListBtn.append(btnDelete);
-
-    // btnChange.addEventListener("click", () => {
+  // btnChange.addEventListener("click", () => {
     //   inputText.value = tasks.inputTextValue;
     //   inputTime.value = tasks.inputTimeValue;
     //   btnAdd.innerHTML = "Сохранить";
@@ -74,20 +51,25 @@ function randerElement(cb, array) {
     //   });
     // });
 
-    // btnDelete.addEventListener("click", () => {
-    //   toDoListitem.remove();
-    //   toDoList.classList.remove("toDoList");
-    // });
-  }
-   
-  }
-
 
 
 btnAdd.addEventListener("click", (event) => {
   event.preventDefault();
-
-  randerElement(addArray, tasks);
+  addTask();
   inputText.value = "";
   inputTime.value = "";
+})
+
+toDoList.addEventListener('click', (event) => {
+  if(event.target.dataset.action === 'delete') {
+    if(confirm('Вы уверенны?')) {
+      const btnDelete = event.target;
+    const toDoListItemId = btnDelete.parentNode.parentNode.id;
+    tasks.splice(tasks.indexOf(find( (el) => el.id == toDoListItemId)), 1)
+    document.getElementById(toDoListItemId).remove()
+    inputText.value = "";
+    inputTime.value = "";
+    console.log(tasks);
+    }
+  }
 })

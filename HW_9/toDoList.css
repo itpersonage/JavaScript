@@ -1,6 +1,5 @@
-.h3 {
-  margin: 0;
-}
+
+
 
 .form {
   background-color: rgb(139, 199, 165);
@@ -8,6 +7,7 @@
   width: 230px;
   padding: 10px;
   border: 2px solid black;
+  margin-bottom: 10px;
 }
 
 .form input {
@@ -22,23 +22,35 @@
 .form button {
   margin-top: 20px;
 }
-
+/* 
 .toDoList {
-  margin-top: 10px;
+  margin-top: 40px;
+  padding: 10px;
   width: 90%;
   border: 2px solid black;
 }
+
+.toDoList h3 {
+  text-align: center;
+}  */
 
 .toDo-List-item {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  margin: 10px;
-  background-color: rgb(157, 163, 161);
+  margin-bottom: 10px;
+  background-color: rgb(37, 182, 133);
+  border: 2px solid black;
+  border-radius: 5px;
+  height: 20px;
 }
 
-.toDoListH3 {
-  background-color: burlywood;
+.toDo-List-item:last-child {
+  margin-bottom: 0;
+}
+
+.inputTextH3 {
+  margin: 0;
 }
 
 .toDo-list-btn {
