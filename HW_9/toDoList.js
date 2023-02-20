@@ -14,24 +14,29 @@ const inputText = document.getElementById("inputText");
 const inputTime = document.getElementById("inputTime");
 const toDoList = document.getElementById("toDoList");
 const btnAdd = document.getElementById("btnAdd");
+
 const tasks = [];
 let countId = 0;
 
-
-function addTask() {
+function addArray(inputText, inputTime) {
   let inputTextValue = inputText.value;
   let inputTimeValue = inputTime.value;
-  if (inputTextValue !== "" && inputTimeValue !== "") {
+  if(inputTextValue !== "" && inputTimeValue !== "") {
     countId++;
     tasks.push({id: countId,
       name: inputTextValue,
       time: inputTimeValue,
     })
+  }
+}
+
+
+function renderTask(obj) {
     const taskHTML = `
-    <div class="toDo-List-item" id='${countId}'>
-        <h3 class="inputTextH3">${inputTextValue}</h3>
+    <div class="toDo-List-item" id=${obj.id}>
+        <h3 class="inputTextH3">${obj.name}</h3>
         <div class="toDo-list-btn">
-          <h3 class="inputTimeH3">${inputTimeValue}</h3>
+          <h3 class="inputTimeH3">${obj.time}</h3>
           <button class="btn-change" data-action='change'>Изменить</button>
           <button class="btn-delete" data-action='delete'>Удалить</button>
         </div>
@@ -39,37 +44,56 @@ function addTask() {
     `;
     toDoList.insertAdjacentHTML('beforeend',taskHTML);
   }
-  }
-
-  // btnChange.addEventListener("click", () => {
-    //   inputText.value = tasks.inputTextValue;
-    //   inputTime.value = tasks.inputTimeValue;
-    //   btnAdd.innerHTML = "Сохранить";
-    //   btnAdd.addEventListener("click", () => {
-    //     toDoListitem.remove();
-    //     btnAdd.innerHTML = "Добавить";
-    //   });
-    // });
-
-
+  
 
 btnAdd.addEventListener("click", (event) => {
   event.preventDefault();
-  addTask();
-  inputText.value = "";
-  inputTime.value = "";
+  let inputTextValue = inputText.value;
+  let inputTimeValue = inputTime.value;
+  if(inputTextValue !== "" && inputTimeValue !== "") {
+    addArray(inputText, inputTime);
+    toDoList.innerHTML = '';
+    tasks.map((el) => renderTask(el))
+    inputText.value = "";
+    inputTime.value = "";
+    console.log(tasks, 'add');
+  }
 })
 
 toDoList.addEventListener('click', (event) => {
   if(event.target.dataset.action === 'delete') {
     if(confirm('Вы уверенны?')) {
       const btnDelete = event.target;
-    const toDoListItemId = btnDelete.parentNode.parentNode.id;
-    tasks.splice(tasks.indexOf(find( (el) => el.id == toDoListItemId)), 1)
-    document.getElementById(toDoListItemId).remove()
-    inputText.value = "";
-    inputTime.value = "";
-    console.log(tasks);
+      const toDoListItemId = btnDelete.parentNode.parentNode.id;
+      const objTask = tasks.find( (el) => el.id == toDoListItemId);
+      const objId = tasks.indexOf(objTask)
+      tasks.splice(objId, 1)
+      toDoList.innerHTML = '';
+      tasks.map((el) => renderTask(el))
+      inputText.value = "";
+      inputTime.value = "";
+      console.log(tasks, 'delete');
     }
-  }
+  } else if (event.target.dataset.action === 'change') {
+    
+      const btnChange = event.target;
+      const toDoListItemId = btnChange.parentNode.parentNode.id;
+      const objTask = tasks.find( (el) => el.id == toDoListItemId)
+      inputText.value = objTask.name;
+      inputTime.value = objTask.time;
+      btnAdd.innerHTML = "Сохранить";
+      console.log(tasks, 'change');
+      btnAdd.addEventListener("click", change);
+
+  function change() {
+    toDoList.innerHTML = '';
+    tasks.map((el) => {
+      renderTask(el)
+    })
+    btnAdd.innerHTML = "Добавить";
+    btnAdd.removeEventListener('click', change)
+    console.log(tasks, 'save');
+}
+}
 })
+
