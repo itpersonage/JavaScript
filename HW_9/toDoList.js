@@ -30,7 +30,6 @@ function addArray(inputText, inputTime) {
   }
 }
 
-
 function renderTask(obj) {
     const taskHTML = `
     <div class="toDo-List-item" id=${obj.id}>
@@ -44,9 +43,8 @@ function renderTask(obj) {
     `;
     toDoList.insertAdjacentHTML('beforeend',taskHTML);
   }
-  
 
-btnAdd.addEventListener("click", (event) => {
+function addTask(event) {
   event.preventDefault();
   let inputTextValue = inputText.value;
   let inputTimeValue = inputTime.value;
@@ -57,12 +55,15 @@ btnAdd.addEventListener("click", (event) => {
     inputText.value = "";
     inputTime.value = "";
     console.log(tasks, 'add');
-  }
-})
+}
+}  
+
+btnAdd.addEventListener("click", addTask)
 
 toDoList.addEventListener('click', (event) => {
   if(event.target.dataset.action === 'delete') {
     if(confirm('Вы уверенны?')) {
+      console.log(tasks, 'delete');
       const btnDelete = event.target;
       const toDoListItemId = btnDelete.parentNode.parentNode.id;
       const objTask = tasks.find( (el) => el.id == toDoListItemId);
@@ -72,28 +73,29 @@ toDoList.addEventListener('click', (event) => {
       tasks.map((el) => renderTask(el))
       inputText.value = "";
       inputTime.value = "";
-      console.log(tasks, 'delete');
     }
   } else if (event.target.dataset.action === 'change') {
-    
+      console.log(tasks, 'change');
       const btnChange = event.target;
       const toDoListItemId = btnChange.parentNode.parentNode.id;
       const objTask = tasks.find( (el) => el.id == toDoListItemId)
       inputText.value = objTask.name;
       inputTime.value = objTask.time;
       btnAdd.innerHTML = "Сохранить";
-      console.log(tasks, 'change');
-      btnAdd.addEventListener("click", change);
-
-  function change() {
-    toDoList.innerHTML = '';
-    tasks.map((el) => {
-      renderTask(el)
-    })
-    btnAdd.innerHTML = "Добавить";
-    btnAdd.removeEventListener('click', change)
-    console.log(tasks, 'save');
-}
+      btnAdd.removeEventListener("click", addTask)
+      btnAdd.addEventListener("click", (event) => {
+        event.preventDefault();
+        const objId = tasks.indexOf(objTask)
+        tasks.splice(objId, 1)
+        toDoList.innerHTML = '';
+        addArray(inputText, inputTime);
+        tasks.map((el) => {
+          renderTask(el)
+        })
+        inputText.value = "";
+        inputTime.value = "";
+        btnAdd.innerHTML = "Добавить";
+        btnAdd.addEventListener("click", addTask) 
+      }, {once:true})
 }
 })
-
