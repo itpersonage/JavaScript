@@ -30,7 +30,6 @@ function addArray(inputText, inputTime) {
   }
 }
 
-
 function renderTask(obj) {
     const taskHTML = `
     <div class="toDo-List-item" id=${obj.id}>
@@ -44,9 +43,8 @@ function renderTask(obj) {
     `;
     toDoList.insertAdjacentHTML('beforeend',taskHTML);
   }
-  
 
-btnAdd.addEventListener("click", (event) => {
+function addTask(event) {
   event.preventDefault();
   let inputTextValue = inputText.value;
   let inputTimeValue = inputTime.value;
@@ -57,8 +55,12 @@ btnAdd.addEventListener("click", (event) => {
     inputText.value = "";
     inputTime.value = "";
     console.log(tasks, 'add');
-  }
-})
+}
+}
+
+
+
+btnAdd.addEventListener("click", addTask)
 
 toDoList.addEventListener('click', (event) => {
   if(event.target.dataset.action === 'delete') {
@@ -81,19 +83,26 @@ toDoList.addEventListener('click', (event) => {
       const objTask = tasks.find( (el) => el.id == toDoListItemId)
       inputText.value = objTask.name;
       inputTime.value = objTask.time;
+      btnAdd.removeEventListener('click', addTask)
       btnAdd.innerHTML = "Сохранить";
       console.log(tasks, 'change');
-      btnAdd.addEventListener("click", change);
 
-  function change() {
-    toDoList.innerHTML = '';
-    tasks.map((el) => {
-      renderTask(el)
-    })
-    btnAdd.innerHTML = "Добавить";
-    btnAdd.removeEventListener('click', change)
-    console.log(tasks, 'save');
+      function saveChange() {
+      //   toDoList.innerHTML = '';
+      //   const objId = tasks.indexOf(objTask)
+      //   console.log(tasks, 'save');
+      //   tasks.splice(objId, 1)
+      //   addArray();
+      //   tasks.map((el) => {
+      //     renderTask(el)
+      // })
+      console.log(tasks, 'save');
+
 }
+      btnAdd.addEventListener("click", saveChange);
+
+      btnAdd.innerHTML = "Добавить";
+      btnAdd.removeEventListener('click', saveChange)
 }
 })
 
