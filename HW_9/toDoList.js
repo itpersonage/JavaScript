@@ -26,14 +26,16 @@ function addArray(inputText, inputTime) {
     tasks.push({id: countId,
       name: inputTextValue,
       time: inputTimeValue,
+      status: false,
+      classCSS: '',
     })
   }
 }
 
 function renderTask(obj) {
     const taskHTML = `
-    <div class="toDo-List-item" id=${obj.id}>
-        <h3 class="inputTextH3">${obj.name}</h3>
+    <div class="toDo-List-item ${obj.classCSS}" id=${obj.id}>
+        <h3 class="inputTextH3"  id='inputTextH3_${obj.id}' data-action='finish'>${obj.name}</h3>
         <div class="toDo-list-btn">
           <h3 class="inputTimeH3">${obj.time}</h3>
           <button class="btn-change" data-action='change'>Изменить</button>
@@ -54,11 +56,8 @@ function addTask(event) {
     tasks.map((el) => renderTask(el))
     inputText.value = "";
     inputTime.value = "";
-    console.log(tasks, 'add');
 }
-}
-
-
+}  
 
 btnAdd.addEventListener("click", addTask)
 
@@ -74,10 +73,8 @@ toDoList.addEventListener('click', (event) => {
       tasks.map((el) => renderTask(el))
       inputText.value = "";
       inputTime.value = "";
-      console.log(tasks, 'delete');
     }
   } else if (event.target.dataset.action === 'change') {
-    
       const btnChange = event.target;
       const toDoListItemId = btnChange.parentNode.parentNode.id;
       const objTask = tasks.find( (el) => el.id == toDoListItemId)
@@ -85,24 +82,38 @@ toDoList.addEventListener('click', (event) => {
       inputTime.value = objTask.time;
       btnAdd.removeEventListener('click', addTask)
       btnAdd.innerHTML = "Сохранить";
-      console.log(tasks, 'change');
-
-      function saveChange() {
-      //   toDoList.innerHTML = '';
-      //   const objId = tasks.indexOf(objTask)
-      //   console.log(tasks, 'save');
-      //   tasks.splice(objId, 1)
-      //   addArray();
-      //   tasks.map((el) => {
-      //     renderTask(el)
-      // })
-      console.log(tasks, 'save');
-
-}
-      btnAdd.addEventListener("click", saveChange);
-
-      btnAdd.innerHTML = "Добавить";
-      btnAdd.removeEventListener('click', saveChange)
+      btnAdd.addEventListener("click", (event) => {
+        event.preventDefault();
+        if(inputText.value !== "" && inputTime.value !== "") {
+          toDoList.innerHTML = '';
+          objTask.name = inputText.value;
+          objTask.time = inputTime.value;
+          tasks.map((el) => {
+            renderTask(el)
+          })
+          inputText.value = "";
+          inputTime.value = "";
+          btnAdd.innerHTML = "Добавить";
+          btnAdd.addEventListener("click", addTask) 
+        } else {
+          alert('поля должны быть заполнены')
+          btnAdd.innerHTML = "Добавить";
+          btnAdd.addEventListener("click", addTask) 
+        }
+      }, {once:true})
 }
 })
 
+toDoList.addEventListener('click' , (event) => {
+  event.preventDefault();
+  if (event.target.dataset.action === 'finish') {
+    const inputTimeH3 = document.getElementById(event.target.id);
+    const inputTextH3Id = inputTimeH3.parentNode.id;
+    const objTask = tasks.find( (el) => el.id == inputTextH3Id)
+    objTask.classCSS = 'task-finished';
+    objTask.status = true;
+    toDoList.innerHTML = '';
+    tasks.map((el) => {
+    renderTask(el)
+  })
+}})
