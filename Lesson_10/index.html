@@ -8,8 +8,19 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <form id="formCreatePost">
+        <div>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <textarea name="body" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <button type="submit">Отправить</button>
+        </div>
+    </form>
     <button id="getPostBtn">Получить все посты</button>
-    <div class="posts" id="posts">
+    <div class="postsList" id="postsList">
     </div>
     <script src="lesson_10.js" ></script>
 </body>

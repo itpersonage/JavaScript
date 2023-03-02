@@ -16,7 +16,8 @@
 // }
 
 const button = document.getElementById('getPostBtn');
-const posts = document.getElementById('posts')
+const postsList = document.getElementById('postsList');
+const formCreatePostElement = document.getElementById('formCreatePost')
 
 button.addEventListener('click', async () => {
     const postsArr = await getPost();
@@ -62,5 +63,17 @@ function createElementPost(post) {
         </div>
     </details>
 </div>`
-posts.insertAdjacentHTML('beforeend',postHTML);
+postsList.insertAdjacentHTML('beforeend',postHTML);
 }
+
+formCreatePostElement.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const body = new FormData(event.target);
+    const response = await fetch(baseURL + '/posts', {
+        method:'post',
+        body,
+    })
+    if (response.ok && response.status === 201) {
+        alert('Запись успешно добавлена')
+    }
+})
