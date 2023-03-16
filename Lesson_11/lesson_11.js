@@ -9,7 +9,7 @@
 // console.log(admin.name);
 
 
-//////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 
 // function CreateUser(name, age) {
@@ -55,3 +55,66 @@
 
 ////////////////////////////////////// Task end /////////////////////////////////////////////////
 
+
+// class Parent {
+//     constructor(name) {
+//         this.name = name;
+//     }
+//     sayHi() {
+//         console.log('my name is ' + this.name);
+//     }
+// };
+
+// const user = new Parent('Andrey');
+
+// user.sayHi()
+
+
+////////////////////////////////////////////////////////
+
+
+// class Animal {
+//     constructor(name, color, weight) {
+//         this.name = name;
+//         this.color = color;
+//         this.weight = weight;
+//     }
+//     say() {
+//         console.log(`${this.name} издает звуки`);
+//     }
+// }
+
+// class Dog extends Animal {
+//     constructor(name, color, weight, breed) {
+//         super(name, color, weight);
+//         this.breed = breed;
+//     }
+//     say() {
+//         console.log(`${this.name} лает`);
+//     }
+// }
+
+// const dogOne = new Dog('Беляш', 'Черный', '2000', 'Такса');
+// console.log(dogOne);
+// dogOne.say()
+
+
+///////////////////////////////////////////////////////////
+
+
+class User {
+    constructor(name) {
+        this._name = name;
+    }
+    get name() {return this._name + ' пользователь'};
+    set name(value) {
+        if (value.length < 2) {
+            console.log('имя слишком короткое');
+            return;
+        }
+        return this._name + value;}
+}
+
+const userOne = new User('Иван');
+userOne.name = '1'
+console.log(userOne.name);
