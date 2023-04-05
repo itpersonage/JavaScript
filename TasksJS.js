@@ -1,24 +1,21 @@
-// 1. Завершите функцию, которая принимает два аргумента и возвращает все числа, 
-//    которые делятся на данный делитель. Первый аргумент - это массив чисел, а второй - делитель.
+// const promise = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     const number = 3;
+//     if (number > 4) {
+//       resolve(number);
+//     }
+//     reject(number);
+//   }, 2000);
+// });
 
-// const result = (array, divisor) => {
-//     return array.filter((el) => el % divisor === 0)
-// }
-// console.log(result([3, 6, 8, 3, 4, 5], 2));
-
-
-
-// 2. Ваша функция принимает два аргумента:
-//    текущий возраст отца (лет)
-//    текущий возраст сына (лет)
-//    Подсчитайте, сколько лет назад отец был вдвое старше сына (или через сколько лет он будет вдвое старше).
-
+// promise
+//   .then((value) => console.log(`ура цифра ${value}  больше пяти`))
+//   .catch((value) => console.log(` К сожалению цифра ${value} меньше пяти`));
 
 
-const twiceAsOld = (dadYearsOld, sonYearsOld) => {
-
+const asyncFn = async() => {
+    await 'Success';
 }
 
+console.log(asyncFn());
 
-
-// 3. Если задано число n, вернуть количество положительных нечетных чисел меньше n.
